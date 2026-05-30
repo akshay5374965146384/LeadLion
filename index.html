@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Lion Resume Builder | Premium MNC Platform</title>
+    <!-- Bootstrap 5, FontAwesome Premium, Inter & JetBrains Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --app-bg: #0f172a;
+            --panel-bg: #1e293b;
+            --border-color: #334155;
+            --text-main: #f8fafc;
+            /* Premium Lion Theme Vectors (Golden & Navy Blue Signature) */
+            --theme-primary: #1e3a8a;
+            --theme-accent: #b45309; /* Golden/Amber Accent */
+            --theme-text: #1e293b;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--app-bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* Top Premium Control Bar with Brand Identity */
+        .top-workspace-bar {
+            background-color: var(--panel-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 8px 30px; /* Adjusted padding for larger logo alignment */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* UPDATED: Bigger Logo & Removed Outline/Borders */
+        .brand-image-logo {
+            width: 64px;        /* Size increased to 64px */
+            height: 64px;       /* Size increased to 64px */
+            border-radius: 8px; /* Smooth corners */
+            object-fit: cover;  /* Prevents image stretching */
+            border: none;       /* Outlines/Borders completely removed */
+            box-shadow: none;   /* Shadows completely removed */
+            background-color: transparent;
+        }
+
+        .brand-name {
+            font-size: 1.5rem; /* Marginally increased for visual balance */
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-name span {
+            color: #fbbf24;
+            -webkit-text-fill-color: initial;
+        }
+
+        /* Workspace Grid System */
+        .workspace-grid {
+            display: grid;
+            grid-template-columns: 460px 1fr;
+            height: calc(100vh - 81px); /* Recalculated based on new top bar height */
+        }
+
+        /* Control Panel (Left Side) */
+        .control-panel {
+            background-color: #111827;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .panel-tabs {
+            display: flex;
+            background: var(--panel-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 5px 5px 0 5px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        /* Hide Scrollbar for tabs */
+        .panel-tabs::-webkit-scrollbar { display: none; }
+
+        .panel-tabs .nav-link {
+            color: #94a3b8;
+            border: none;
+            padding: 12px 14px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 6px 6px 0 0;
+            transition: all 0.2s ease;
+        }
+
+        .panel-tabs .nav-link.active {
+            background-color: #111827;
+            color: #fbbf24;
+            border-bottom: 2px solid #fbbf24;
+        }
+
+        .tab-content-scroller {
+            padding: 25px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .form-label {
+            color: #94a3b8;
+            font-weight: 500;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+        }
+
+        .form-control, .form-select {
+            background-color: #1f2937;
+            border: 1px solid var(--border-color);
+            color: #f3f4f6;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 0.9rem;
+        }
+
+        .form-control:focus {
+            background-color: #1f2937;
+            border-color: #fbbf24;
+            color: #fff;
+            box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
+        }
+
+        /* Engine Live Canvas (Right Side) */
+        .preview-canvas {
+            background-color: #0f172a;
+            overflow-y: auto;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        /* Elite Dynamic Resume Frame */
+        .resume-sheet {
+            background: #ffffff;
+            color: var(--theme-text);
+            width: 210mm; /* Strict A4 Spec */
+            min-height: 297mm;
+            padding: 50px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border-top: 8px solid var(--theme-primary);
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Structural Layout Grid mapping */
+        .sheet-header-grid {
+            display: grid;
+            grid-template-columns: 1fr 125px;
+            gap: 30px;
+            align-items: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+        }
+
+        .candidate-name {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--theme-primary);
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+
+        .candidate-headline {
+            font-size: 1.2rem;
+            color: var(--theme-accent);
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .meta-contact-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .meta-contact-strip span i {
+            color: var(--theme-accent);
+        }
+
+        /* Passport Frame */
+        .passport-photo-wrapper {
+            width: 120px;
+            height: 150px;
+            border-radius: 6px;
+            border: 2px solid #e2e8f0;
+            overflow: hidden;
+            background: #f1f5f9;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        .passport-photo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Advanced Structural Blocks */
+        .canvas-section-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--theme-primary);
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 5px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .timeline-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .node-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #0f172a;
+        }
+
+        .node-org {
+            font-weight: 600;
+            color: var(--theme-accent);
+            font-size: 0.95rem;
+        }
+
+        .node-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #64748b;
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .node-body {
+            font-size: 0.92rem;
+            color: #334155;
+            margin-top: 6px;
+            line-height: 1.6;
+        }
+
+        /* Adaptive Corporate Badges */
+        .tech-pill {
+            display: inline-block;
+            background: #f1f5f9;
+            color: #1e293b;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            margin-right: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+        }
+
+        /* Certificate Badge System */
+        .cert-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #fafafa;
+            border-left: 3px solid var(--theme-accent);
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            border-top: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .cert-badge i {
+            color: var(--theme-accent);
+            font-size: 1.1rem;
+        }
+
+        .cert-title {
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: #0f172a;
+        }
+
+        .cert-issuer {
+            font-size: 0.83rem;
+            color: #64748b;
+        }
+
+        /* Dynamic Theme Selectors */
+        .theme-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            margin-left: 8px;
+            border: 2px solid transparent;
+            transition: transform 0.2s;
+        }
+
+        .theme-dot:hover { transform: scale(1.15); }
+        .theme-dot.active { border-color: #fff; }
+
+        /* Print Override Configuration Engine */
+        @media print {
+            body, .preview-canvas { background: #fff !important; padding: 0 !important; overflow: visible !important; }
+            .top-workspace-bar, .control-panel { display: none !important; }
+            .workspace-grid { display: block !important; height: auto !important; }
+            .resume-sheet { box-shadow: none !important; width: 100% !important; padding: 0 !important; border-top: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- TOP WORKSPACE BRANDING LOGO BAR -->
+<div class="top-workspace-bar">
+    <div class="brand-logo-container">
+        <!-- UPDATED: 64px Borderless Image Stream -->
+        <img src="logo.jpg" alt="Logo" class="brand-image-logo" onerror="this.onerror=null; this.src='https://via.placeholder.com/64x64?text=L';">
+        
+        <div class="brand-name">LEAD <span>LION</span></div>
+        <span class="badge bg-dark border border-secondary text-secondary ms-2">Resume Engine v3.0</span>
+    </div>
+    
+    <!-- Real-time Theme Matrix Control -->
+    <div class="d-flex align-items-center gap-2">
+        <span class="small text-secondary me-2">Executive Themes:</span>
+        <div class="theme-dot active" style="background: #1e3a8a;" data-primary="#1e3a8a" data-accent="#b45309"></div>
+        <div class="theme-dot" style="background: #111827;" data-primary="#111827" data-accent="#6b7280"></div>
+        <div class="theme-dot" style="background: #065f46;" data-primary="#065f46" data-accent="#0d9488"></div>
+        <div class="theme-dot" style="background: #7c2d12;" data-primary="#7c2d12" data-accent="#e11d48"></div>
+        
+        <button class="btn btn-warning text-dark fw-800 px-4 ms-4" onclick="window.print()">
+            <i class="fa-solid fa-file-pdf me-2"></i>Export Premium PDF
+        </button>
+    </div>
+</div>
+
+<!-- MAIN WORKSPACE LAYOUT -->
+<div class="workspace-grid">
+    
+    <!-- LEFT CONTROL WORKSPACE -->
+    <div class="control-panel">
+        <nav class="nav nav-tabs panel-tabs" id="builderTabs" role="tablist">
+            <button class="nav-link active" id="tab-nav-bio" data-bs-toggle="tab" data-bs-target="#panel-bio" type="button"><i class="fa-solid fa-user"></i> Bio</button>
+            <button class="nav-link" id="tab-nav-work" data-bs-toggle="tab" data-bs-target="#panel-work" type="button"><i class="fa-solid fa-briefcase"></i> Work</button>
+            <button class="nav-link" id="tab-nav-edu" data-bs-toggle="tab" data-bs-target="#panel-edu" type="button"><i class="fa-solid fa-graduation-cap"></i> Academic</button>
+            <button class="nav-link" id="tab-nav-skills" data-bs-toggle="tab" data-bs-target="#panel-skills" type="button"><i class="fa-solid fa-code"></i> Skills</button>
+            <button class="nav-link" id="tab-nav-cert" data-bs-toggle="tab" data-bs-target="#panel-cert" type="button"><i class="fa-solid fa-award"></i> Certifications</button>
+        </nav>
+        
+        <div class="tab-content tab-content-scroller" id="builderTabsContent">
+            <!-- TAB 1: IDENTITY -->
+            <div class="tab-pane fade show active" id="panel-bio" role="tabpanel">
+                <div class="mb-4">
+                    <label class="form-label">Corporate Passport Photo</label>
+                    <input type="file" id="imageUploadEngine" class="form-control" accept="image/*">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Full Legal Name</label>
+                    <input type="text" id="inName" class="form-control" value="Vikram Malhotra">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Target Architecture Designation</label>
+                    <input type="text" id="inTitle" class="form-control" value="Principal Solutions Architect">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Secure Enterprise Email</label>
+                    <input type="email" id="inEmail" class="form-control" value="v.malhotra@enterprise.com">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Mobile Terminal Vector</label>
+                    <input type="text" id="inPhone" class="form-control" value="+91 91122 33445">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Deployment Node Location</label>
+                    <input type="text" id="inLocation" class="form-control" value="Mumbai, India">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">LinkedIn Ecosystem URI</label>
+                    <input type="text" id="inLinkedin" class="form-control" value="linkedin.com/in/vikram-solutions">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Executive Abstract & Profile Summary</label>
+                    <textarea id="inSummary" class="form-control" rows="4">Enterprise Solutions Architect with 8+ years designing high-availability cloud topographies and distributed telemetry systems. Expert at migrating monolithic financial cores to cloud-native micro-architectures with zero data loss vectors.</textarea>
+                </div>
+            </div>
+
+            <!-- TAB 2: EXPERIENCE -->
+            <div class="tab-pane fade" id="panel-work" role="tabpanel">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-secondary small fw-bold">EXPERIENCE TIMELINE MATRIX</span>
+                    <button type="button" class="btn btn-sm btn-outline-warning text-warning" id="spawnExperience"><i class="fa fa-plus"></i> Add Node</button>
+                </div>
+                <div id="experienceCollector">
+                    <div class="exp-card border border-secondary p-3 mb-3 rounded bg-dark">
+                        <input type="text" class="form-control mb-2 nodeInRole fw-bold" placeholder="Designation" value="Lead Architect">
+                        <input type="text" class="form-control mb-2 nodeInCompany" placeholder="MNC Enterprise" value="Microsoft Corporation">
+                        <input type="text" class="form-control mb-2 nodeInDuration" placeholder="Duration Frame" value="2022 - Present">
+                        <textarea class="form-control mb-2 nodeInDesc" rows="3" placeholder="Core Technical Implementations">• Orchestrated cloud transformation strategy for global banking infrastructure across 14 zones.\n• Optimized Kubernetes cluster efficiency reducing computing overhead vectors by 30%.</textarea>
+                        <button type="button" class="btn btn-sm btn-danger destroy-node float-end"><i class="fa fa-trash"></i> Drop</button>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: ACADEMIC -->
+            <div class="tab-pane fade" id="panel-edu" role="tabpanel">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-secondary small fw-bold">ACADEMIC TIMELINE MATRIX</span>
+                    <button type="button" class="btn btn-sm btn-outline-warning text-warning" id="spawnEducation"><i class="fa fa-plus"></i> Add Degree</button>
+                </div>
+                <div id="educationCollector">
+                    <div class="edu-card border border-secondary p-3 mb-3 rounded bg-dark">
+                        <input type="text" class="form-control mb-2 nodeInDegree fw-bold" placeholder="Degree Target" value="Master of Technology (M.Tech)">
+                        <input type="text" class="form-control mb-2 nodeInSchool" placeholder="University Node" value="IIT Bombay">
+                        <input type="text" class="form-control mb-2 nodeInEduDuration" placeholder="Timeline" value="2012 - 2014">
+                        <button type="button" class="btn btn-sm btn-danger destroy-node float-end"><i class="fa fa-trash"></i> Drop</button>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: CORE COMPETENCIES -->
+            <div class="tab-pane fade" id="panel-skills" role="tabpanel">
+                <div class="mb-3">
+                    <label class="form-label">Core Technical Competencies Matrix</label>
+                    <textarea id="inSkills" class="form-control" rows="5">Amazon Web Services (AWS), Azure Cloud architecture, Enterprise Kubernetes, CI/CD Telemetry Pipelines, Golang infrastructure, Terraform (IaC), Apache Kafka, System Security Protocols, Distributed Core Engineering</textarea>
+                </div>
+            </div>
+
+            <!-- TAB 5: CERTIFICATIONS & CREDENTIALS -->
+            <div class="tab-pane fade" id="panel-cert" role="tabpanel">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-secondary small fw-bold">GLOBAL CREDENTIAL TRACKS</span>
+                    <button type="button" class="btn btn-sm btn-outline-warning text-warning" id="spawnCertification"><i class="fa fa-plus"></i> Add Credential</button>
+                </div>
+                <div id="certificationCollector">
+                    <div class="cert-card border border-secondary p-3 mb-3 rounded bg-dark">
+                        <input type="text" class="form-control mb-2 nodeInCertTitle fw-bold" placeholder="Certification Title" value="AWS Certified Solutions Architect – Professional">
+                        <input type="text" class="form-control mb-2 nodeInCertIssuer" placeholder="Authority / Issuer" value="Amazon Web Services (AWS)">
+                        <button type="button" class="btn btn-sm btn-danger destroy-node float-end"><i class="fa fa-trash"></i> Drop</button>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT PANEL: PREMIUM REALTIME LIVE PREVIEW CANVAS -->
+    <div class="preview-canvas">
+        <div class="resume-sheet" id="viewSheet">
+            <!-- Header Grid Area -->
+            <div class="sheet-header-grid">
+                <div>
+                    <div class="candidate-name" id="outName">Vikram Malhotra</div>
+                    <div class="candidate-headline" id="outTitle">Principal Solutions Architect</div>
+                    <div class="meta-contact-strip">
+                        <span id="outEmail"><i class="fa-solid fa-envelope me-1"></i> v.malhotra@enterprise.com</span>
+                        <span id="outPhone"><i class="fa-solid fa-phone me-1"></i> +91 91122 33445</span>
+                        <span id="outLocation"><i class="fa-solid fa-location-dot me-1"></i> Mumbai, India</span>
+                        <span id="outLinkedin"><i class="fa-brands fa-linkedin me-1"></i> linkedin.com/in/vikram-solutions</span>
+                    </div>
+                </div>
+                <div class="passport-photo-wrapper">
+                    <img id="outPhoto" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200" alt="Executive Identity">
+                </div>
+            </div>
+
+            <!-- Profile Narrative Block -->
+            <div>
+                <div class="canvas-section-title"><i class="fa-solid fa-circle-nodes"></i> Executive Core Profile</div>
+                <p id="outSummary" style="text-align: justify; font-size: 0.94rem; color: #334155;"></p>
+            </div>
+
+            <!-- Experience Block Pipeline -->
+            <div>
+                <div class="canvas-section-title"><i class="fa-solid fa-timeline"></i> Professional Chronology</div>
+                <div id="outExperience"></div>
+            </div>
+
+            <!-- Education Block Pipeline -->
+            <div>
+                <div class="canvas-section-title"><i class="fa-solid fa-building-columns"></i> Academic Infrastructure</div>
+                <div id="outEducation"></div>
+            </div>
+
+            <!-- Technical Capabilities Matrix Grid -->
+            <div>
+                <div class="canvas-section-title"><i class="fa-solid fa-microchip"></i> Core Technical Vectors</div>
+                <div id="outSkills" style="margin-top: 5px;"></div>
+            </div>
+
+            <!-- Certifications Block Pipeline -->
+            <div id="viewCertBlock">
+                <div class="canvas-section-title"><i class="fa-solid fa-award"></i> Verified Industry Credentials</div>
+                <div id="outCertifications" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <!-- Dual Grid Matrix for Certificates -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Framework Dependencies -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(document).ready(function() {
+
+    // Theme Switch Engine Matrix
+    $('.theme-dot').click(function() {
+        $('.theme-dot').removeClass('active');
+        $(this).addClass('active');
+        
+        var primaryColor = $(this).data('primary');
+        var accentColor = $(this).data('accent');
+        
+        var sheet = document.getElementById('viewSheet');
+        sheet.style.setProperty('--theme-primary', primaryColor);
+        sheet.style.setProperty('--theme-accent', accentColor);
+    });
+
+    // Image Upload Pipeline Stream
+    $('#imageUploadEngine').change(function(e) {
+        var file = e.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#outPhoto').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Main Data Runtime Sync Engine
+    function cycleEngineUpdates() {
+        $('#outName').text($('#inName').val());
+        $('#outTitle').text($('#inTitle').val());
+        $('#outSummary').text($('#inSummary').val());
+        
+        $('#outEmail').html($('#inEmail').val() ? '<i class="fa-solid fa-envelope me-1"></i>' + $('#inEmail').val() : '');
+        $('#outPhone').html($('#inPhone').val() ? '<i class="fa-solid fa-phone me-1"></i>' + $('#inPhone').val() : '');
+        $('#outLocation').html($('#inLocation').val() ? '<i class="fa-solid fa-location-dot me-1"></i>' + $('#inLocation').val() : '');
+        $('#outLinkedin').html($('#inLinkedin').val() ? '<i class="fa-brands fa-linkedin me-1"></i>' + $('#inLinkedin').val() : '');
+
+        // Sync Experience Chronology Nodes
+        $('#outExperience').empty();
+        $('.exp-card').each(function() {
+            var role = $(this).find('.nodeInRole').val();
+            var comp = $(this).find('.nodeInCompany').val();
+            var dur = $(this).find('.nodeInDuration').val();
+            var desc = $(this).find('.nodeInDesc').val();
+
+            if (role || comp) {
+                var cleanDesc = desc ? desc.replace(/\n/g, '<br>') : '';
+                var nodeHtml = `
+                    <div class="timeline-item">
+                        <div class="timeline-meta">
+                            <span class="node-title">${role}</span>
+                            <span class="node-date">${dur}</span>
+                        </div>
+                        <div class="node-org">${comp}</div>
+                        <div class="node-body">${cleanDesc}</div>
+                    </div>
+                `;
+                $('#outExperience').append(nodeHtml);
+            }
+        });
+
+        // Sync Academic Nodes
+        $('#outEducation').empty();
+        $('.edu-card').each(function() {
+            var deg = $(this).find('.nodeInDegree').val();
+            var school = $(this).find('.nodeInSchool').val();
+            var dur = $(this).find('.nodeInEduDuration').val();
+
+            if (deg || school) {
+                var eduHtml = `
+                    <div class="timeline-item mb-2">
+                        <div class="timeline-meta">
+                            <span class="node-title">${deg}</span>
+                            <span class="node-date">${dur}</span>
+                        </div>
+                        <div class="node-org">${school}</div>
+                    </div>
+                `;
+                $('#outEducation').append(eduHtml);
+            }
+        });
+
+        // Sync Tech Token Skills Matrix
+        $('#outSkills').empty();
+        var elements = $('#inSkills').val().split(',');
+        elements.forEach(function(token) {
+            if (token.trim() !== '') {
+                $('#outSkills').append('<span class="tech-pill">' + token.trim() + '</span>');
+            }
+        });
+
+        // Sync Advanced Certifications Blocks
+        $('#outCertifications').empty();
+        var totalCerts = 0;
+        $('.cert-card').each(function() {
+            var title = $(this).find('.nodeInCertTitle').val();
+            var issuer = $(this).find('.nodeInCertIssuer').val();
+
+            if (title || issuer) {
+                totalCerts++;
+                var certHtml = `
+                    <div class="cert-badge">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <div>
+                            <div class="cert-title">${title}</div>
+                            <div class="cert-issuer">${issuer}</div>
+                        </div>
+                    </div>
+                `;
+                $('#outCertifications').append(certHtml);
+            }
+        });
+        
+        // Auto hide certification title block on layout if no records are active
+        if(totalCerts === 0) { $('#viewCertBlock').hide(); } else { $('#viewCertBlock').show(); }
+    }
+
+    // Dynamic Spawners Injection Configuration
+    $('#spawnExperience').click(function() {
+        var blueprint = `
+            <div class="exp-card border border-secondary p-3 mb-3 rounded bg-dark">
+                <input type="text" class="form-control mb-2 nodeInRole fw-bold" placeholder="Designation">
+                <input type="text" class="form-control mb-2 nodeInCompany" placeholder="MNC Enterprise">
+                <input type="text" class="form-control mb-2 nodeInDuration" placeholder="Duration Frame">
+                <textarea class="form-control mb-2 nodeInDesc" rows="3" placeholder="• Core architectural operations..."></textarea>
+                <button type="button" class="btn btn-sm btn-danger destroy-node float-end"><i class="fa fa-trash"></i> Drop</button>
+                <div class="clearfix"></div>
+            </div>
+        `;
+        $('#experienceCollector').append(blueprint);
+        cycleEngineUpdates();
+    });
+
+    $('#spawnEducation').click(function() {
+        var blueprint = `
+            <div class="edu-card border border-secondary p-3 mb-3 rounded bg-dark">
+                <input type="text" class="form-control mb-2 nodeInDegree fw-bold" placeholder="Degree Target">
+                <input type="text" class="form-control mb-2 nodeInSchool" placeholder="University Node">
+                <input type="text" class="form-control mb-2 nodeInEduDuration" placeholder="Timeline">
+                <button type="button" class="btn btn-sm btn-danger destroy-node float-end"><i class="fa fa-trash"></i> Drop</button>
+                <div class="clearfix"></div>
+            </div>
+        `;
+        $('#educationCollector').append(blueprint);
+        cycleEngineUpdates();
+    });
+
+    $('#spawnCertification').click(function() {
+        var blueprint = `
+            <div class="cert-card border border-secondary p-3 mb-3 rounded bg-dark">
+                <input type="text" class="form-control mb-2 nodeInCertTitle fw-bold" placeholder="Certification Title">
+                <input type="text" class="form-control mb-2 nodeInCertIssuer" placeholder="Authority / Issuer">
+                <button type="button" class="btn btn-sm btn-danger destroy-node float-end"><i class="fa fa-trash"></i> Drop</button>
+                <div class="clearfix"></div>
+            </div>
+        `;
+        $('#certificationCollector').append(blueprint);
+        cycleEngineUpdates();
+    });
+
+    // Global Drop Nodes System
+    $(document).on('click', '.destroy-node', function() {
+        $(this).parent().remove();
+        cycleEngineUpdates();
+    });
+
+    // Runtime input stream event hook setup
+    $(document).on('input keyup', '.control-panel input, .control-panel textarea', function() {
+        cycleEngineUpdates();
+    });
+
+    // Boot Init System
+    cycleEngineUpdates();
+});
+</script>
+
+</body>
+</html>
