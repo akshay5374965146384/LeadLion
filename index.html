@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lead Lion Resume Builder | Premium MNC Platform</title>
+    <link rel="icon" type="image/x-icon" href="logo.jpg">
     <!-- Bootstrap 5, FontAwesome Premium, Inter & JetBrains Fonts -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -11,10 +12,10 @@
     
     <style>
         :root {
-            --app-bg: #0f1420;
-            --panel-bg: #2c0101;
-            --border-color: #0a0a09;
-            --text-main: #f5f7f9;
+            --app-bg: #dce4f6;
+            --panel-bg: #48052d;
+            --border-color: #ffffff;
+            --text-main: #f1f3f4;
             /* Premium Lion Theme Vectors (Golden & Navy Blue Signature) */
             --theme-primary: #1e3a8a;
             --theme-accent: #ff8427; /* Golden/Amber Accent */
@@ -118,7 +119,7 @@
 
         .panel-tabs .nav-link.active {
             background-color: #ffffff;
-            color: #000000;
+            color: #5a4c0aaa;
             border-bottom: 2px solid #24bafb;
         }
 
@@ -138,14 +139,14 @@
         .form-control, .form-select {
             background-color: #fafafa;
             border: 1px solid var(--border-color);
-            color: #010c20;
+            color: #000000;
             border-radius: 8px;
             padding: 10px 12px;
             font-size: 0.9rem;
         }
 
         .form-control:focus {
-            background-color: #1f2937;
+            background-color: #070707;
             border-color: #ffffff;
             color: #fff;
             box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
@@ -365,7 +366,7 @@
         <img src="logo.jpg" alt="Logo" class="brand-image-logo" onerror="this.onerror=null; this.src='https://via.placeholder.com/64x64?text=L';">
         
         <div class="brand-name">LEAD <span>LION</span></div>
-        <span class="badge bg-dark border border-secondary text-secondary ms-2">Resume Engine v1.0</span>
+        <span class="badge bg-dark border border-secondary text-secondary ms-2">Resume Builder v1.0</span>
     </div>
     
     <!-- Real-time Theme Matrix Control -->
@@ -377,7 +378,7 @@
         <div class="theme-dot" style="background: #7c2d12;" data-primary="#7c2d12" data-accent="#e11d48"></div>
         
         <button class="btn btn-warning text-dark fw-800 px-4 ms-4" onclick="window.print()">
-            <i class="fa-solid fa-file-pdf me-2"></i>Export Premium PDF
+            <i class="fa-solid fa-file-pdf me-2"></i>Export Resume PDF
         </button>
     </div>
 </div>
@@ -388,11 +389,11 @@
     <!-- LEFT CONTROL WORKSPACE -->
     <div class="control-panel">
         <nav class="nav nav-tabs panel-tabs" id="builderTabs" role="tablist">
-            <button class="nav-link active" id="tab-nav-bio" data-bs-toggle="tab" data-bs-target="#panel-bio" type="button"><i class="fa-solid fa-user"></i> Bio</button>
-            <button class="nav-link" id="tab-nav-work" data-bs-toggle="tab" data-bs-target="#panel-work" type="button"><i class="fa-solid fa-briefcase"></i> Work</button>
-            <button class="nav-link" id="tab-nav-edu" data-bs-toggle="tab" data-bs-target="#panel-edu" type="button"><i class="fa-solid fa-graduation-cap"></i> Academic</button>
-            <button class="nav-link" id="tab-nav-skills" data-bs-toggle="tab" data-bs-target="#panel-skills" type="button"><i class="fa-solid fa-code"></i> Skills</button>
-            <button class="nav-link" id="tab-nav-cert" data-bs-toggle="tab" data-bs-target="#panel-cert" type="button"><i class="fa-solid fa-award"></i> Certifications</button>
+            <button class="nav-link active" id="tab-nav-bio" data-bs-toggle="tab" data-bs-target="#panel-bio" type="button"><i class="fa-solid fa-user"></i> Introduction</button>
+            <button class="nav-link" id="tab-nav-work" data-bs-toggle="tab" data-bs-target="#panel-work" type="button"><i class="fa-solid fa-briefcase"></i> Work Experience</button>
+            <button class="nav-link" id="tab-nav-edu" data-bs-toggle="tab" data-bs-target="#panel-edu" type="button"><i class="fa-solid fa-graduation-cap"></i> Academic Background</button>
+            <button class="nav-link" id="tab-nav-skills" data-bs-toggle="tab" data-bs-target="#panel-skills" type="button"><i class="fa-solid fa-code"></i> Skills </button>
+            <button class="nav-link" id="tab-nav-cert" data-bs-toggle="tab" data-bs-target="#panel-cert" type="button"><i class="fa-solid fa-award"></i> Certifications </button>
         </nav>
         
         <div class="tab-content tab-content-scroller" id="builderTabsContent">
